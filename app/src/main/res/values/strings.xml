@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Scan to Pay</string>
+    <string name="scan">Scan</string>
+    <string name="upi_id">UPI ID-</string>
+    <string name="enter_the_amount">Enter The Amount</string>
+    <string name="pay_with_upi">Pay with UPI</string>
+    <string name="name">Name-</string>
+</resources>
