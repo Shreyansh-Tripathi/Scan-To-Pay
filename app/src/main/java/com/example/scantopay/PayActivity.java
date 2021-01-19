@@ -46,17 +46,21 @@ public class PayActivity extends AppCompatActivity {
            else {
                String upi=getIntent().getStringExtra("pa");
                String name=getIntent().getStringExtra("pn");
+               String mc=getIntent().getStringExtra("mc");
                String amount= amount_et.getText().toString().trim();
-               startTransaction(upi,name,amount);
+               startTransaction(upi,name,amount,mc);
            }
         });
     }
 
-    private void startTransaction(String upi, String name, String amount) {
+    private void startTransaction(String upi, String name, String amount, String mc) {
         Uri uri=Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa",upi)
                 .appendQueryParameter("pn",name)
                 .appendQueryParameter("am",amount)
+                .appendQueryParameter("mc",mc)
+                .appendQueryParameter("tn","Payment")
+                .appendQueryParameter("tr","354654")
                 .appendQueryParameter("cu","INR")
                 .build();
 
@@ -65,7 +69,7 @@ public class PayActivity extends AppCompatActivity {
 
         Intent chooser=Intent.createChooser(upiPayIntent, "Pay Using");
 
-        if(chooser.resolveActivity(getPackageManager())!=null)
+        if(upiPayIntent.resolveActivity(getPackageManager())!=null)
           startActivityForResult(chooser, UPI_PAY);
         else
           Toast.makeText(this, "No UPI Apps Found", Toast.LENGTH_SHORT).show();

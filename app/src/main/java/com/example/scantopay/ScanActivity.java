@@ -34,27 +34,44 @@ public class ScanActivity extends AppCompatActivity {
         codeScanner= new CodeScanner(this, scannerView);
 
         codeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
-            String name="",upi="";
+            String name="",upi="",mc="";
             if (result.toString().startsWith("upi://pay")){
-                int i =result.toString().indexOf("?pa=");
-                i+=4;
-                for(;;i++){
+                int i =result.toString().indexOf("pa=");
+                i+=3;
+                while (i<result.toString().length()){
                     if(result.toString().charAt(i) != '&')
                         upi=upi+(result.toString().charAt(i));
                     else
                         break;
+                    ++i;
                 }
                 i =result.toString().indexOf("pn=");
                 i+=3;
-                for(;;i++){
+                while (i<result.toString().length()){
                     if(result.toString().charAt(i) != '&')
                         name=name+(result.toString().charAt(i));
                     else
                         break;
+                    ++i;
                 }
+                if(result.toString().contains("mc=")) {
+                    i = result.toString().indexOf("mc=");
+                    i += 3;
+                    while (i<result.toString().length()){
+                        if (result.toString().charAt(i) != '&')
+                            mc = mc + (result.toString().charAt(i));
+                        else
+                            break;
+                        ++i;
+                    }
+                }
+                else
+                    mc="0000";
+
                 Intent intent=new Intent(ScanActivity.this,PayActivity.class);
                 intent.putExtra("pa",upi);
                 intent.putExtra("pn",name);
+                intent.putExtra("mc",mc);
                 startActivity(intent);
             }
             else
