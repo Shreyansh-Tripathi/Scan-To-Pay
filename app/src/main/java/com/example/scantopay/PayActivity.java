@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -69,7 +69,7 @@ public class PayActivity extends AppCompatActivity {
 
         Intent chooser=Intent.createChooser(upiPayIntent, "Pay Using");
 
-        if(upiPayIntent.resolveActivity(getPackageManager())!=null)
+        if(chooser.resolveActivity(getPackageManager())!=null)
           startActivityForResult(chooser, UPI_PAY);
         else
           Toast.makeText(this, "No UPI Apps Found", Toast.LENGTH_SHORT).show();

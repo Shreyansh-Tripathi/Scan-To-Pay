@@ -66,7 +66,7 @@ public class ScanActivity extends AppCompatActivity {
                     }
                 }
                 else
-                    mc="0000";
+                    mc="";
 
                 Intent intent=new Intent(ScanActivity.this,PayActivity.class);
                 intent.putExtra("pa",upi);
@@ -96,7 +96,7 @@ public class ScanActivity extends AppCompatActivity {
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                Toast.makeText(ScanActivity.this, "Camera Permission Required To Scan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScanActivity.this, "Camera Permission Required To Scan!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
